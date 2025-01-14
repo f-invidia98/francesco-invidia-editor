@@ -1,0 +1,202 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesco Invidia - Video</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gotham:wght@400;700&display=swap');
+
+        @font-face {
+            font-family: 'FONT';
+            src: url('ASSETS/FONTS/Poleno_Medium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html, body {
+            font-family: 'FONT', sans-serif;
+            font-size: 80%;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            background-color: black;
+            height: 100%;
+            color: white;
+            margin: 0 0px;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .section {
+            padding: 40px 20px;
+        }
+        .section-with-margin {
+            margin: 0 120px;
+        }
+        .section-border {
+            border-bottom: 1px solid white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 20px;
+        }
+        .title {
+            font-size: 28.8px;
+        }
+        .editor {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .x-container {
+            right: 0;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: 0.3s ease-in-out;
+        }
+        .x-container.active {
+            right: 200px;
+        }
+        .x-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            left: 0;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+        }
+        .x-line1 {
+            top: 25%;
+        }
+        .x-line2 {
+            top: 50%;
+        }
+        .x-line3 {
+            top: 75%;
+        }
+        .x-container.active .x-line1 {
+            transform: rotate(45deg);
+            top: 50%;
+        }
+        .x-container.active .x-line2 {
+            transform: rotate3d(0, 1, 0, 90deg);
+        }
+        .x-container.active .x-line3 {
+            transform: rotate(-45deg);
+            top: 50%;
+        }
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 24px;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer h3 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .footer-columns {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            width: auto;
+        }
+        .footer-row {
+            display: block;
+        }
+        .video-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .video-section iframe {
+            width: 48%;
+            height: 360px;
+            margin: 1%;
+        }
+        .show-more-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: none;
+        }
+        .show-more-button:hover {
+            background-color: white;
+            color: black;
+            text-decoration: none;
+        }
+        .show-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header class="section section-with-margin section-border">
+        <div class="title">FRANCESCO INVIDIA <span class="editor">Editor</span></div>
+        <div class="x-container" onclick="toggleMenu(this)">
+            <div class="x-line x-line1"></div>
+            <div class="x-line x-line2"></div>
+            <div class="x-line x-line3"></div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="video-section section section-with-margin section-border" id="video">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <footer class="section-with-margin">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Contatti</h3>
+                    <div class="footer-row">
+                        <p>Email: <a href="mailto:francesco@example.com">francesco@example.com</a></p>
+                        <p>Instagram: <a href="https://www.instagram.com/francesco" target="_blank">@francesco</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function toggleMenu(element) {
+            element.classList.toggle('active');
+            document.getElementById('menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

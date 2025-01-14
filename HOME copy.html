@@ -1,0 +1,382 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesco Invidia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gotham:wght@400;700&display=swap');
+
+        @font-face {
+            font-family: 'FONT';
+            src: url('ASSETS/FONTS/Poleno_Medium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html, body {
+            font-family: 'FONT', sans-serif;
+            font-size: 80%; /* Reduce font size by 20% */
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            background-color: black;
+            height: 100%;
+            color: white;
+            margin: 0 0px;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .section {
+            padding: 40px 20px; /* Increased padding for more space */
+        }
+        .section-with-margin {
+            margin: 0 120px; /* Increased margin */
+        }
+        .section-border {
+            border-bottom: 1px solid white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 20px; /* Align text to the end */
+        }
+        .title {
+            font-size: 28.8px; /* Reduced from 36px */
+        }
+        .editor {
+            font-size: 16px; /* Reduced from 20px */
+            margin-left: 10px;
+        }
+        .x-container {
+            right: 0;
+            position: relative;
+            width: 40px; /* Reduced from 50px */
+            height: 40px; /* Reduced from 50px */
+            cursor: pointer;
+            z-index: 1001; /* Ensure it stays above the menu */
+            transition: 0.3s ease-in-out; /* Smoother slide effect */
+        }
+        .x-container.active {
+            right: 200px; /* Adjusted for reduced menu width */
+        }
+        .x-line {
+            position: absolute;
+            width: 100%;
+            height: 4px; /* Reduced from 5px */
+            background-color: white;
+            left: 0;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+        }
+        .x-line1 {
+            top: 25%;
+        }
+        .x-line2 {
+            top: 50%;
+        }
+        .x-line3 {
+            top: 75%;
+        }
+        .x-container.active .x-line1 {
+            transform: rotate(45deg);
+            top: 50%;
+        }
+        .x-container.active .x-line2 {
+            transform: rotate3d(0, 1, 0, 90deg);   
+            /* left: -100%; */
+        }
+        .x-container.active .x-line3 {
+            transform: rotate(-45deg);
+            top: 50%;
+        }
+        .video-container, .carousel {
+            display: flex;
+            justify-content: center;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 640px; /* Reduced from 800px */
+        }
+        .carousel-container {
+            overflow-x: scroll;
+            align-items: start;
+            scroll-snap-type: x mandatory;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            position: relative;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        .carousel img {
+            width: auto; /* Maintain aspect ratio */
+            height: 360px; /* Set a fixed height */
+            flex-shrink: 0;
+        }
+        .image-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-section img {
+            margin: 20px; /* Increased from 10px */
+        }
+        .image-section .row {
+            display: flex;
+            width: 100%;
+        }
+        .image-section .row img {
+            flex: 1;
+            max-width: 7%; /* Remove max-width */
+            width: 100%; /* Make each image take full width */
+        }
+        .invert-logo {
+            filter: invert(1);
+        }
+        .space-between {
+            justify-content: space-between;
+        }
+        .space-around {
+            justify-content: space-around;
+        }
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 24px;
+            margin-top: 20px;
+            font-size: 24px; /* Increased from 14.4px */
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-size: 24px; /* Increased from 14.4px */
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer h3 {
+            font-size: 36px; /* Increased from 18px */
+            font-weight: bold;
+        }
+        .menu {
+            display: block;
+            position: fixed;
+            top: 0;
+            right: -340px; /* Start off-screen */
+            width: 240px; /* Reduced from 300px */
+            height: 100%;
+            background-color: white; /* Changed to white */
+            color: black; /* Changed to black */
+            padding: 16px; /* Reduced from 20px */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: right 0.3s ease-in-out; /* Smoother slide in effect */
+            text-transform: uppercase; /* All caps */
+            font-size: 16px; /* Reduced from 20px */
+        }
+        .menu a {
+            color: black; /* Changed to black */
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        .menu.active {
+            right: 0; /* Slide in */
+        }
+        .content, header {
+            transition: none; /* Remove transform transition */
+        }
+        .content.shifted, header.shifted {
+            transform: none; /* Remove transform */
+        }
+        a {
+            text-decoration: none; /* Remove underline */
+        }
+        a:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .footer-columns {
+            display: flex;
+            justify-content: center; /* Center the single column */
+            flex-wrap: wrap;
+            text-align: left; /* Align text to the left */
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            width: auto; /* Adjust width for single column */
+        }
+        .footer-row {
+            display: block; /* Change to block for single column */
+        }
+        .video-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .video-section iframe {
+            width: 48%; /* Adjust width for 2x2 grid */
+            height: 360px; /* Adjust height as needed */
+            margin: 1%; /* Add space between videos */
+        }
+        .show-more-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: none; /* Remove transition for immediate effect */
+        }
+        .show-more-button:hover {
+            background-color: white;
+            color: black;
+            text-decoration: none; /* Remove underline on hover */
+        }
+        .show-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header class="section section-with-margin section-border">
+        <!-- Titolo e pulsante del menu -->
+        <div class="title">FRANCESCO INVIDIA <span class="editor">Editor</span></div>
+        <div class="x-container" onclick="toggleMenu(this)">
+            <div class="x-line x-line1"></div>
+            <div class="x-line x-line2"></div>
+            <div class="x-line x-line3"></div>
+        </div>
+    </header>
+    <div class="menu" id="menu">
+        <a href="#section1">Sezione 1</a>
+        <a href="#section2">Sezione 2</a>
+        <a href="#section3">Sezione 3</a>
+    </div>
+    <div class="content">
+        <div class="video-container section section-with-margin section-border">
+            <!-- Video di YouTube -->
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="carousel-container section">
+            <!-- Carosello di immagini -->
+            <div class="carousel">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 1">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 2">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 3">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 4">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 5">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 6">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 7">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 8">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 9">
+                <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 10">
+            </div>
+        </div>
+        <div class="section-with-margin section-border"></div>
+
+        <div class="image-section section section-with-margin section-border"  id="logos">
+            <!-- Nuova sezione di immagini -->
+            <div class="row space-between">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 11" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 12" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 13" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 14" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 15" class="invert-logo">
+            </div>
+            <div class="row space-around">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 16" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 17" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 18" class="invert-logo">
+                <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 19" class="invert-logo">
+            </div>
+        </div>
+        <div class="video-section section section-with-margin section-border">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div class="show-more-container">
+                <a href="#" class="show-more-button">Show more</a>
+            </div>
+        </div>
+        <footer class="section-with-margin">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Contatti</h3>
+                    <div class="footer-row">
+                        <p>Email: <a href="mailto:francesco@example.com">francesco@example.com</a></p>
+                        <p>Instagram: <a href="https://www.instagram.com/francesco" target="_blank">@francesco</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    
+
+    <script>
+
+             // Funzione per aprire e chiudere il menu
+             function toggleMenu(element) {
+            element.classList.toggle('active');
+            document.getElementById('menu').classList.toggle('active');
+            }
+
+
+        $(document).ready(function() {
+
+         
+
+            // Funzione per convertire una percentuale in un intervallo
+            function percentageToRange(percentage, min, max) {
+                return (percentage / 100) * (max - min) + min;
+            }
+            const $carousel = $('.carousel-container');
+            const $images = $('.carousel img');
+            let totalImagesWidth = $images.toArray().reduce((total, img) => total + $(img).outerWidth(true), 0);
+            $carousel.scrollLeft((45 * (totalImagesWidth - $carousel.width())) / 100);
+
+            // Scorrimento del carosello in base allo scroll della pagina
+            $(window).on('scroll', function() {
+                const scrollPercentage = (($(window).scrollTop() * 100) / ($(document).height() - $(window).height()));
+                const scrollPercentageReduced = percentageToRange(scrollPercentage, 45, 55);
+                const scrollPosition = (scrollPercentageReduced * (totalImagesWidth - $carousel.width())) / 100;
+                $carousel.scrollLeft(scrollPosition);
+            });
+
+            // Aggiornamento della larghezza totale delle immagini al ridimensionamento della finestra
+            $(window).on('resize', function() {
+                totalImagesWidth = $images.toArray().reduce((total, img) => total + $(img).outerWidth(true), 0);
+            });
+        });
+
+        function showMoreVideos() {
+            // Implement the functionality to show more videos
+        }
+    </script>
+</body>
+</html>
