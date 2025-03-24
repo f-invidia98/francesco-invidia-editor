@@ -1,0 +1,826 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesco Invidia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gotham:wght@400;700&display=swap');
+
+        @font-face {
+            font-family: 'FONT';
+            src: url('ASSETS/FONTS/Oswald-Medium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-stretch:wider;
+        }
+        *{
+            box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            /* width: 5px; */
+            /* background: transparent;  */
+        }
+
+        html, body {
+            font-family: 'FONT', sans-serif;
+            font-size: 80%; /* Reduce font size by 20% */
+            
+            }
+        html {
+            height: 100%;
+        }
+        body {
+            background-color: #141414;
+            height: 100%;
+            color: rgb(255, 255, 255);
+            margin: 0 0px;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .section {
+            
+            padding : 50px 40px;
+        }
+        .section-with-margin {
+            padding: 50px 0px; /* Increased margin */
+        }
+        .section-border {
+            border-bottom: 1px solid white;
+                /* margin: 50px 120px; */
+            z-index: 100;
+            position: relative;
+        }
+        header {
+            box-sizing: border-box;
+            display: flex;
+            width: 100vw;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px 20px 40px; 
+            position: fixed;
+            top: -55px;
+            transition: 0.1s ease-in-out; /* Smoother transition */
+            /* box-shadow: 0 5px 13px rgb(0 0 0 / 46%); */
+            z-index: 100;
+
+        }
+
+
+        .header-shadow {
+            position: relative;
+            top: 0;
+            background-color: #141414;
+            width: 100%;
+            box-shadow: 0px -3px 27px 5px rgb(0 0 0 / 100%);
+            z-index: 12;
+            transition: opacity 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: space-evenly;
+        }
+
+        .shadow {
+            position: relative;
+            box-shadow: 0px 0px 40px 5px rgb(0 0 0 / 100%);
+            z-index: 10;
+            height: 1px;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+
+        .title {
+            text-shadow: 1px 2px 10px black;
+            font-size: 24px; /* Reduced from 36px */
+        }
+
+        #main-video {
+            object-fit: cover;
+            height: 588px;
+            width: 100vw;
+            z-index: 1;
+        }
+
+
+        .video-container {
+            position: relative;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(150 150 150 / 35%); /* Bianco con opacità al 30% */
+            pointer-events: none; /* Permette di interagire con il video sotto */
+            z-index: 2;
+        }
+
+        .titolo-schermo{
+            font-size: 45px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: -7%;
+            flex-wrap: wrap;
+            align-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            opacity: 0.8;
+            text-shadow: 1px 2px 10px black;
+        }
+
+        .sottotitolo{
+            font-size: 25px;
+        }
+
+        .editor {
+            /* font-size: 17px;  */
+            margin-left: 10px;
+        }
+
+
+        .main-content {
+           height: auto;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        .x-container {
+            right: 0;
+            position: relative;
+            width: 40px; /* Reduced from 50px */
+            height: 40px; /* Reduced from 50px */
+            cursor: pointer;
+            z-index: 1001; /* Ensure it stays above the menu */
+            transition: 0.3s ease-in-out; /* Smoother slide effect */
+        }
+        .x-container.active {
+            right: 200px; /* Adjusted for reduced menu width */
+        }
+        .x-line {
+            position: absolute;
+            width: 100%;
+            height: 4px; /* Reduced from 5px */
+            background-color: white;
+            left: 0;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+        }
+        .x-line1 {
+            top: 25%;
+        }
+        .x-line2 {
+            top: 50%;
+        }
+        .x-line3 {
+            top: 75%;
+        }
+        .x-container.active .x-line1 {
+            transform: rotate(45deg);
+            top: 50%;
+        }
+        .x-container.active .x-line2 {
+            transform: rotate3d(0, 1, 0, 90deg);   
+            /* left: -100%; */
+        }
+        .x-container.active .x-line3 {
+            transform: rotate(-45deg);
+            top: 50%;
+        }
+        .video-container, .carousel {
+            display: flex;
+            justify-content: center;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 640px; /* Reduced from 800px */
+        }
+        .carousel-container {
+            overflow-x: scroll;
+            align-items: start;
+            scroll-snap-type: x mandatory;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            align-content: center;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 0px;
+        }
+        .carousel img {
+            width: auto; /* Maintain aspect ratio */
+            height: 25vw; /* Set a fixed height */
+            flex-shrink: 0;
+            /* border: 3px solid white; */
+            margin-left: 20px;
+            border-radius: 10%;
+            box-shadow: 0px 0px 14px -6px #060606;
+        }
+
+        .carousel img:hover {
+            transform: scale(1.03);
+            transition: 0.2s ease-in-out;
+            filter: blur(3px);
+            cursor: pointer;
+        }
+        .image-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-section img {
+            margin: 20px; /* Increased from 10px */
+        }
+        .image-section .row {
+            display: flex;
+            width: 70%;
+            align-items: center;
+            opacity: 55%;
+        }
+        .image-section .row img {
+            flex: 1;
+            max-width: 12%; /* Remove max-width */
+            width: 100%; /* Make each image take full width */
+            margin: 12px;
+        }
+        .invert-logo {
+            filter:grayscale(1) invert(1);
+            /* filter: invert(1); */
+        }
+        .space-between {
+            justify-content: space-between;
+        }
+        .space-around {
+            justify-content: space-around;
+        }
+        footer {
+            /* text-align: left; */
+            font-size: 24px; /* Increased from 14.4px */
+            display: flex;
+            justify-content: space-between;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        
+        footer h3 {
+            font-size: 36px; /* Increased from 18px */
+            font-weight: bold;
+         
+        }
+
+       .text-align-right{
+            text-align: right;
+        }
+        .menu {
+            display: block;
+            position: fixed;
+            top: 0;
+            right: -340px; /* Start off-screen */
+            width: 240px; /* Reduced from 300px */
+            height: 100%;
+            background-color: white; /* Changed to white */
+            color: black; /* Changed to black */
+            padding: 16px; /* Reduced from 20px */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: right 0.3s ease-in-out; /* Smoother slide in effect */
+            text-transform: uppercase; /* All caps */
+            font-size: 16px; /* Reduced from 20px */
+        }
+        .menu a {
+            color: black; /* Changed to black */
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        .menu.active {
+            right: 0; /* Slide in */
+        }
+        .content {
+            padding-bottom: 20px;
+        }
+        .content, header {
+            /* transition: none; Remove transform transition */
+        }
+        .content.shifted, header.shifted {
+            transform: none; /* Remove transform */
+        }
+        a {
+            color: rgb(207, 207, 207);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: rgb(255, 255, 255);
+
+            text-decoration: none;
+            /* text-shadow: 10px 5px #1408f3; */
+
+
+        }
+       
+        .contatti{
+            /* justify-content: left; */
+        }
+ 
+     
+        .video-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .video-section iframe {
+            width: 48%; /* Adjust width for 2x2 grid */
+            height: 360px; /* Adjust height as needed */
+            /* margin: 1%; */
+        }
+        .show-more-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            transition: none; /* Remove transition for immediate effect */
+        }
+        .show-more-button:hover {
+            background-color: white;
+            color: black;
+            text-decoration: none; /* Remove underline on hover */
+        }
+        .show-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+      
+
+        /* Tablet breakpoint */
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px 10px; /* Adjust padding */
+            }
+            .section-with-margin {
+                margin: 0 60px; /* Adjust margin */
+            }
+            .title {
+                font-size: 24px; /* Adjust font size */
+            }
+            .editor {
+                font-size: 14px; /* Adjust font size */
+            }
+            .x-container {
+                width: 30px; /* Adjust size */
+                height: 30px; /* Adjust size */
+            }
+            .x-line {
+                height: 3px; /* Adjust line height */
+            }
+            .video-container iframe {
+                height: 480px; /* Adjust video height */
+            }
+            .carousel img {
+                height: 240px; /* Adjust image height */
+            }
+            footer {
+                font-size: 18px; /* Adjust font size */
+            }
+            footer a {
+                font-size: 18px; /* Adjust font size */
+            }
+            footer h3 {
+                font-size: 24px; /* Adjust font size */
+            }
+            .menu {
+                width: 200px; /* Adjust menu width */
+            }
+            .menu a {
+                font-size: 14px; /* Adjust font size */
+            }
+            .video-section iframe {
+                width: 100%; /* Full width for videos */
+                height: 240px; /* Adjust video height */
+            }
+        }
+
+        /* Phone breakpoint */
+        @media (max-width: 480px) {
+            .section {
+                padding: 10px 5px; /* Adjust padding */
+            }
+            .section-with-margin {
+                margin: 0 30px; /* Adjust margin */
+            }
+            .title {
+                font-size: 20px; /* Adjust font size */
+            }
+            .editor {
+                font-size: 12px; /* Adjust font size */
+            }
+            .x-container {
+                width: 20px; /* Adjust size */
+                height: 20px; /* Adjust size */
+            }
+            .x-line {
+                height: 2px; /* Adjust line height */
+            }
+            .video-container iframe {
+                height: 320px; /* Adjust video height */
+            }
+            .carousel img {
+                height: 180px; /* Adjust image height */
+            }
+            footer {
+                font-size: 14px; /* Adjust font size */
+            }
+            footer a {
+                font-size: 14px; /* Adjust font size */
+            }
+            footer h3 {
+                font-size: 18px; /* Adjust font size */
+            }
+            .menu {
+                width: 160px; /* Adjust menu width */
+            }
+            .menu a {
+                font-size: 12px; /* Adjust font size */
+            }
+            .video-section iframe {
+                width: 100%; /* Full width for videos */
+                height: 180px; /* Adjust video height */
+            }
+        }
+
+        .video-wrapper {
+            width: 48%;
+            margin: 1%;
+            text-align: left;
+        }
+        .video-title {
+            width: 100%;
+            color: white;
+            font-size: 25px;
+            margin-top: 25px;
+        }
+        .video-title-small {
+            width: 100%;
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .video-section, .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .video-section iframe, .video-container iframe {
+            width: 100%; /* Ensure videos are proportionate */
+            height: auto; /* Adjust height to maintain aspect ratio */
+            aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+        }
+        .show-more-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .bordo_locandine{
+            border: 3px solid white;
+        }
+
+        .border{
+            border: 1px solid white;
+        }
+
+        .overhidden{
+            overflow: hidden;
+        }
+
+        #player {
+        overflow: hidden;
+        border-radius: 10px; /* Aggiunge angoli arrotondati */
+        }
+
+        #player iframe {
+            position: relative;
+            top: -30px; /* Nasconde il titolo visivamente */
+        }
+       
+        
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- <div class="header-shadow">
+        <div class="title">
+            <a href="">IG</a> / <a href="">MAIL</a>
+        </div>
+    </div> -->
+    <header class="">
+       
+        <!-- Titolo e pulsante del menu -->
+        <div class="title">FRANCESCO _ INVIDIA . EDITOR</div>   
+       
+        <div class="title">
+            <a href="">IG</a> / <a href="">MAIL</a>
+        </div>
+        
+        <!-- <div class="title">FRANCESCO INVIDIA <span class="editor">EDITOR</span></div> -->
+
+        <!-- <div class="x-container" onclick="toggleMenu(this)">
+            <div class="x-line x-line1"></div>
+            <div class="x-line x-line2"></div>
+            <div class="x-line x-line3"></div>
+        </div> -->
+    </header>
+    <!-- <div class="section-with-margin"></div> -->
+
+    <div class="menu" id="menu">
+        <a href="#section1">Sezione 1</a>
+        <a href="#section2">Sezione 2</a>
+        <a href="#section3">Sezione 3</a>
+    </div>
+    <div class="content">
+        <div class="video-container">
+   
+            <div class="video-container">
+                <video id="main-video" autoplay muted loop>
+                    <source src="LOOP-02.mp4" type="video/mp4">
+                    Il tuo browser non supporta il tag video.
+                </video>
+                <!-- <div class="video-overlay">
+                    <div class="titolo-schermo">
+                      FRANCESCO INVIDIA
+                      <div class="sottotitolo">EDITOR</div>
+                    </div>
+               
+                </div> -->
+
+            </div>
+            <!-- Video di YouTube -->
+            <!-- <iframe class="" src="https://youtu.be/C3hy1yB7jYo?modestbranding=1&rel=0&controls=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+
+            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/C3hy1yB7jYo?si=x0Mau_E46PIP23ny&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+                        <!-- <div class="video-title"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ">Main Video Title</a></div> -->
+        </div>
+
+        <!-- <div class="section-with-margin section-border"></div> -->
+        
+        <div class="main-content  shadow">
+            <div class="section">
+                <div class=" carousel-container">
+                    <!-- Carosello di immagini -->
+                    <div class="carousel" id="locandine">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 1">
+                        <img src="ASSETS/IMG/LOCANDINE/heureux.jpeg" alt="Locandina 2">
+                        <img src="ASSETS/IMG/LOCANDINE/parco-della-vittoria.jpeg" alt="Locandina 3">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 4">
+                        <img src="ASSETS/IMG/LOCANDINE/30-anni.jpeg" alt="Locandina 5">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 6">
+                    </div>
+                </div>
+
+                <div class=" carousel-container">
+                    <!-- Carosello di immagini -->
+                    <div class="carousel" id="locandine">
+                        <img src="ASSETS/IMG/LOCANDINE/30-anni.jpeg" alt="Locandina 5">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 6">
+                        <img src="ASSETS/IMG/LOCANDINE/heureux.jpeg" alt="Locandina 2">
+                        <img src="ASSETS/IMG/LOCANDINE/parco-della-vittoria.jpeg" alt="Locandina 3">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 1">
+                        <img src="ASSETS/IMG/LOCANDINE/Locandina_10.09.jpg" alt="Locandina 4">
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-border"></div>
+    
+            <div class="image-section section"  id="logos">
+                <!-- Nuova sezione di immagini -->
+                <div class="row space-between">
+                    <img src="ASSETS/LOGHI/LOGO_OVERCLOCK.png" alt="Logo 11">
+                    <img src="ASSETS/LOGHI/LOGO_JCM.png" alt="Logo 12">
+                    <img src="ASSETS/LOGHI/LOGO_FOOD-NETWORK.png" alt="Logo 13" style="max-width: 8%; max-height: 66%;">
+                    <img src="ASSETS/LOGHI/LOGO_COSTA_BN.svg" alt="Logo 14" style="max-width: 10%; max-height: 66%;">
+                    <img src="ASSETS/IMG/JD_Sports_logo.svg" alt="Logo 15" class="invert-logo" style="max-width: 8%; max-height: 66%;">
+                </div>
+                <div class="row space-around">
+                    <img src="ASSETS/LOGHI/LOGO_SORTE.png" alt="Logo 16">
+                    <img src="ASSETS/LOGHI/LOGO_AH.svg" alt="Logo 17" class="invert-logo">
+                    <img src="ASSETS/LOGHI/LOGO_URBAN-COLORS.PNG" alt="Logo 18">
+                    <img src="ASSETS/LOGHI/LOGO_TIJ.png" alt="Logo 19">
+                </div>
+            </div>
+            <!-- <div class="section-with-margin section-border"></div> -->
+            <!-- <div class="video-section section" id="video">
+                <div class="video-wrapper">
+                    <iframe class="border" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    
+                    <p class="video-title-small"><a href="https://youtu.be/6h8u2y1d3u4">Video Title 1</a></p>
+                </div>
+                <div class="video-wrapper">
+                    <iframe class="border" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <p class="video-title-small"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ">Video Title 2</a></p>
+                </div>
+                <div class="video-wrapper">
+                    <iframe  class="border" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <p class="video-title-small"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ">Video Title 3</a></p>
+                </div>
+                <div class="video-wrapper">
+                    <iframe  class="border" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <p class="video-title-small"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ">Video Title 4</a></p>
+                </div>
+                <div class="show-more-container">
+                    <a href="video.html" class="show-more-button">Show more</a>
+                </div>
+            </div> -->
+
+
+
+
+        </div>
+        
+        <div class="section-border"></div>
+        
+        <footer class="contatti section">
+                    <!-- <h3>Contatti</h3> -->
+                    <div class="footer-row">
+                        <p>EMAIL:</p>
+                        <p>IG:</p>
+                    </div>
+                    <div class="footer-row text-align-right">
+                        <a href="mailto:finvidia@gmail.com">finvidia@gmail.com</a></br>
+                        <a href="https://www.instagram.com/francesco.invidia" target="_blank">@francesco.invidia</a>
+                    </div>
+                    
+        </footer>
+     
+
+    </div>
+
+    <!-- <div class="scheda">
+        <div class="scheda-titolo">
+            <h1>FRANCESCO INVIDIA</h1>
+            <h2>EDITOR</h2>
+        </div>
+        
+       
+
+    </div> -->
+  
+
+    
+
+    <script>
+
+
+             // Funzione per aprire e chiudere il menu
+             function toggleMenu(element) {
+            element.classList.toggle('active');
+            document.getElementById('menu').classList.toggle('active');
+            }
+
+
+        $(document).ready(function() {
+
+            const $video = $('#main-video');
+        const minHeight = 588; // Altezza minima del video
+        // const maxHeight = (windowWidth * 9) / 16; // Altezza massima del video
+
+        // Funzione per aggiornare l'altezza del video in base allo scroll
+        function updateVideoHeight() {
+            const windowWidth = $(window).width();
+            const windowHeight = $(window).height();
+            const minHeight = (windowWidth * 9) / 16;; // Altezza minima del video
+            
+            const maxHeight = (windowWidth * 9) / 16;
+            const scrollPercentage = ($(window).scrollTop() * 100) / 59;
+            const newHeight = percentageToRange(scrollPercentage, minHeight, maxHeight);
+            const newOpacity = percentageToRange(scrollPercentage, 1, -1 );
+
+            $video.height(newHeight);
+
+            $(".video-overlay").css("opacity", newOpacity);
+
+            $(".header-shadow").css("height", $("header").height() + 40)
+
+            if ($(window).scrollTop() >= 60) {
+                $video.height(maxHeight);
+                $("header").css("position","fixed")
+                $("header").css("top","0px")
+            } else {
+                $("header").css("position","fixed")
+                $("header").css("top","-55px")
+            }
+
+
+            if ($(window).scrollTop() >= 200) {
+                $video.height(maxHeight);
+                
+
+            } else {
+               
+            }
+
+        }
+
+        // Funzione per convertire una percentuale in un intervallo
+        function percentageToRange(percentage, min, max) {
+            return (percentage / 100) * (max - min) + min;
+        }
+
+        // Aggiorna l'altezza del video al caricamento della pagina e allo scroll
+        updateVideoHeight();
+        $(window).on('scroll', updateVideoHeight);
+        $(window).on('resize', updateVideoHeight); // Aggiorna l'altezza del video anche al ridimensionamento della finestra
+
+
+            // Funzione per convertire una percentuale in un intervallo
+            function percentageToRange(percentage, min, max) {
+                return (percentage / 100) * (max - min) + min;
+            }
+            const $carousel = $('.carousel-container');
+            const $images = $('.carousel img');
+            let totalImagesWidth = $images.toArray().reduce((total, img) => total + $(img).outerWidth(true), 0);
+            $carousel.scrollLeft((45 * (totalImagesWidth - $carousel.width())) / 100);
+
+            // Scorrimento del carosello in base allo scroll della pagina
+            $(window).on('scroll', function() {
+                const scrollPercentage = (($(window).scrollTop() * 100) / ($(document).height() - $(window).height()));
+                const scrollPercentageReduced = percentageToRange(scrollPercentage, 25, 75);
+                const scrollPosition = (scrollPercentageReduced * (totalImagesWidth - $carousel.width())) / 100;
+                $carousel.scrollLeft(scrollPosition);
+            });
+
+            // Aggiornamento della larghezza totale delle immagini al ridimensionamento della finestra
+            $(window).on('resize', function() {
+                totalImagesWidth = $images.toArray().reduce((total, img) => total + $(img).outerWidth(true), 0);
+            });
+        });
+
+        function showMoreVideos() {
+            // Implement the functionality to show more videos
+        }
+    </script>
+    <script>
+  // Questa funzione viene chiamata automaticamente dall'API quando è pronta
+//   function onYouTubeIframeAPIReady() {
+//     new YT.Player('player', {
+//       height: '315', // Altezza del player
+//       width: '560',  // Larghezza del player
+//       videoId: 'C3hy1yB7jYo', // ID del video YouTube
+//       playerVars: {
+//         modestbranding: 1,  // Nasconde il logo di YouTube
+//         rel: 0,             // Mostra solo video correlati dello stesso canale
+//         controls: 0,        // Mostra i controlli del player
+//         showinfo: 0,        // (Deprecated) Non funziona più, ma l'interfaccia è personalizzabile con CSS
+//         autoplay: 0,        // Non avvia il video automaticamente
+//         fs: 1,              // Abilita/disabilita il pulsante per lo schermo intero
+//         iv_load_policy: 3   // Disabilita le annotazioni sul video
+//       },
+//       events: {
+//         onReady: function(event) {
+//           // Opzionale: azioni quando il video è pronto
+//           console.log('Player pronto!');
+//           $(".ytp-title-text").css("opacity", "0");
+          
+//         }
+//       }
+//     });
+//   }
+
+
+</script>
+    <!-- <script src="https://www.youtube.com/iframe_api"></script> -->
+<script>
+    $(".ytp-title-text").css("opacity", "0");
+</script>
+
+
+</body>
+</html>
