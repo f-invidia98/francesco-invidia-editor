@@ -92,6 +92,9 @@
             opacity: 0;
         }
 
+        .hide{
+            display: none;
+        }
 
         .title {
             text-shadow: 1px 2px 10px black;
@@ -669,6 +672,10 @@
                     <source src="LOOP-03_low.mp4" type="video/mp4">
                     Il tuo browser non supporta il tag video.
                 </video>
+                <video id="main-video-vericale" class="hide" autoplay playsinline muted loop>
+                    <source src="LOOP-03_low.mp4" type="video/mp4">
+                    Il tuo browser non supporta il tag video.
+                </video>
                 <!-- <div class="video-overlay">
                     <div class="titolo-schermo">
                       FRANCESCO INVIDIA
@@ -1223,6 +1230,7 @@
         $(document).ready(function() {
 
             const $video = $('#main-video');
+            const $video2 = $('#main-video-verticale');
         // const maxHeight = (windowWidth * 9) / 16; // Altezza massima del video
 
         // Funzione per aggiornare l'altezza del video in base allo scroll
@@ -1236,6 +1244,15 @@
 
 
             $video.height(newHeight);
+            $video2.height(newHeight);
+
+            if (windowWidth < windowHeight) {
+                $video.addClass('hide');
+                $video2.removeClass('hide');
+            } else {
+                $video.removeClass('hide');
+                $video2.addClass('hide');
+            }
             $("iframe").height(((($(window).width() / 100 * 85)/100*90)* 1 ) / 2.35 + "px");
         }
 
